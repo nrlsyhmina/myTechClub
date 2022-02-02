@@ -1,6 +1,8 @@
-Thanks for downloading this template!
+Web Group Project For CSC574 Web Programming Subject
 
-Template Name: eStartup
-Template URL: https://bootstrapmade.com/estartup-bootstrap-landing-page-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
+MyTech Club Website
+
+Member(s): 
+Madihah Hannani
+Ain Vauxhall
+Nurul Syahmina
