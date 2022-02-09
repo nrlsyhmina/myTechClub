@@ -1,3 +1,9 @@
+<?php
+include("connection/connection.php");
+$sql = "SELECT * FROM STUDENT";
+$result = mysqli_query($conn, $sql);
+//mysqli_close($conn);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,9 +93,9 @@
             <div class="about-content" data-aos="fade-left" data-aos-delay="100">
 
               <h2>About <span>MyTech</span></h2>
-              <p>MyTech club is an organization conducted by Faculty Computer Science UiTM Jasin to expose the knowledge about computer. 
-                There are various types of activity conducted by MyTech Club to educate the students regarding the computer world such as 
-                coding competition and hacking simulation. 
+              <p>MyTech club is an organization conducted by Faculty Computer Science UiTM Jasin to expose the knowledge about computer.
+                There are various types of activity conducted by MyTech Club to educate the students regarding the computer world such as
+                coding competition and hacking simulation.
               </p>
 
               <ul class="list-unstyled">
@@ -188,70 +194,44 @@
 
         <div class="row">
 
-          <div class="col-md-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
-            <div class="team-block bottom">
-              <img src="assets/img/team/1.jpg" class="img-responsive" alt="img">
-              <div class="team-content">
-                <ul class="list-unstyled">
-                  <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-                  <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-                  <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
-                </ul>
-                <span>President</span>
-                <h4>Kimberly Tran</h4>
-              </div>
-            </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
+              <thead>
+                <tr>
+
+                  <th class="">Member Name</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                  include('connection/connection.php');
+
+                  echo "<tr>";
+
+                  echo "<td>" . $row['STUD_NAME'] . "</td>";
+                  echo '<td class="text-center">';
+                  echo '<ul class="table-controls">';
+                  echo '<li><a href="update-member.php?STUD_ID=' . urlencode($row['STUD_ID']) . '" data-toggle="tooltip" data-placement="top" title="Edit">Edit</a></li>';
+                  echo '</ul>';
+                  echo '</td>';
+                  echo "</tr>";
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
 
-          <div class="col-md-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
-            <div class="team-block bottom">
-              <img src="assets/img/team/2.jpg" class="img-responsive" alt="img">
-              <div class="team-content">
-                <ul class="list-unstyled">
-                  <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-                  <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-                  <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
-                </ul>
-                <span>Vice President</span>
-                <h4>Kimberly Tran</h4>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
-            <div class="team-block bottom">
-              <img src="assets/img/team/3.jpg" class="img-responsive" alt="img">
-              <div class="team-content">
-                <ul class="list-unstyled">
-                  <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-                  <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-                  <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
-                </ul>
-                <span>Secretary</span>
-                <h4>Kimberly Tran</h4>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
-            <div class="team-block bottom">
-              <img src="assets/img/team/4.jpg" class="img-responsive" alt="img">
-              <div class="team-content">
-                <ul class="list-unstyled">
-                  <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-                  <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-                  <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
-                </ul>
-                <span>Treasurer</span>
-                <h4>Kimberly Tran</h4>
-              </div>
-            </div>
-          </div>
-          <div class="row" data-aos="fade-up" data-aos-delay="100">        
+
+          <div class="row" data-aos="fade-up" data-aos-delay="100">
             <div class="hero-container" data-aos="fade-in">
-              <center><button style="margin-bottom: 4px"  class="btn btn-success" type="button" data-dismiss="modal">Update Member Information</button></center>
+              <center><button style="margin-bottom: 4px" class="btn btn-success" type="button" data-dismiss="modal">Update Member Information</button></center>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </section><!-- End Team Section -->
@@ -266,10 +246,10 @@
           <p class="separator">Frustrations? We Give Computer Solutions</p>
         </div>
 
-        <div class="row" data-aos="fade-up" data-aos-delay="100">        
-            <div class="hero-container" data-aos="fade-in">
-              <center><button  class="btn btn-success" type="button" data-dismiss="modal"><a style="color: white" class="button" href="register.php">Register Now!</a></button></center>
-            </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="hero-container" data-aos="fade-in">
+            <center><button class="btn btn-success" type="button" data-dismiss="modal"><a style="color: white" class="button" href="register.php">Register Now!</a></button></center>
+          </div>
         </div>
       </div>
     </section><!-- End Pricing Section -->
@@ -317,31 +297,40 @@
             <div class="form">
               <form action="forms/contact.php" method="post" role="form" class="php-email-form">
                 <div class="form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                  <input type="text" class="form-control mb-4" placeholder="Name*" id="name">
                 </div>
                 <div class="form-group mt-3">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                  <input type="text" class="form-control mb-4" placeholder="Email*" id="email">
                 </div>
                 <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                  <input type="text" class="form-control mb-4" placeholder="Subject*" id="subject">
                 </div>
                 <div class="form-group mt-3">
-                  <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                  <textarea class="form-control" id="message" rows="5" placeholder="Message*"></textarea>
                 </div>
                 <div class="my-3">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
                 </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
+                <div class="text-center"><button type="submit" onclick="send_ws()">Send Message</button></div>
               </form>
             </div>
+
           </div>
         </div>
       </div>
+
     </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.8200168934977!2d102.4509268147026!3d2.2213963983808775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d1c2904d683dc3%3A0x216b1d164eba26a1!2sUniversiti%20Teknologi%20MARA%20Cawangan%20Melaka%20Kampus%20Jasin!5e0!3m2!1sen!2smy!4v1644331249530!5m2!1sen!2smy" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+
+
+
+  </div>
+
 
   <!-- ======= Footer ======= -->
   <footer class="footer">
@@ -445,6 +434,16 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script>
+    function send_ws() {
+      let msg = document.getElementById("message").value;
+      let sub = document.getElementById("subject").value;
+      let email = document.getElementById("email").value;
+      let name = document.getElementById("name").value;
+      var win = window.open(`https://wa.me/${60197418171}?text=Hello%20Nurul%20Syahmina,%0A%0AI%27m%20*${name}*%0A*Email:*%20${email}%0A*Message:*%20${msg}%0A*Subject:*%20${sub}`, '_blank');
+      // win.focus();
+    }
+  </script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
