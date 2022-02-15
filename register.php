@@ -23,10 +23,8 @@ if (isset($_POST['save'])) {
         header("Location: register.php?op=errkod");
         return false;
     } else {
-
-        $query = "INSERT INTO STUDENT(STUD_NAME, STUD_IC, STUD_USERNAME, STUD_PASSWORD, STUD_ADDRESS, STUD_GENDER, STUD_EMAIL, STUD_CLASS, STUD_AGE, STUD_PHONE)VALUES
-        ('$STUD_NAME', '$STUD_IC','$STUD_USERNAME', '$STUD_PASSWORD', '$STUD_ADDRESS', '$STUD_GENDER', '$STUD_EMAIL', '$STUD_CLASS', '$STUD_AGE' , '$STUD_PHONE')";
-        
+        $query = "INSERT INTO STUDENT(STUD_NAME, STUD_IC, STUD_USERNAME, STUD_PASSWORD, STUD_ADDRESS, STUD_GENDER, STUD_EMAIL, STUD_CLASS, STUD_AGE, STUD_PHONE)
+        VALUES('$STUD_NAME', '$STUD_IC','$STUD_USERNAME', '$STUD_PASSWORD', '$STUD_ADDRESS', '$STUD_GENDER', '$STUD_EMAIL', '$STUD_CLASS', '$STUD_AGE' , '$STUD_PHONE')";
     }
 
 
@@ -45,7 +43,7 @@ if (isset($_POST['save'])) {
     });
       </script>";
 
-        header("Location: register.php?op=success");
+        header("Location: index.php?op=success");
     }
 
     echo $query;
@@ -129,9 +127,9 @@ if (isset($_POST['save'])) {
         <div class="container d-flex align-items-center justify-content-between">
 
             <div id="logo">
-                <h1><a href="index.php"><span>My</span>Tech</a></h1>
+                <h1><a href="index.html"><span>My</span>Tech</a></h1>
                 <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <a href="index.php"><img src="assets/img/logo.png" alt="" title="" /></a>-->
+                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" title="" /></a>-->
             </div>
 
             <nav id="navbar" class="navbar">
@@ -211,7 +209,7 @@ if (isset($_POST['save'])) {
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="number" name="STUD_PHONE" class="form-control" id="STUD_PHONE" placeholder="Your Phone Number" required>
-                                </div><br>
+                                </div>
                                 <div class="text-center"><button type="submit" name="save">Register</button>
                                 <button type="reset">Reset</button></div>
                             </form>

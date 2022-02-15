@@ -9,29 +9,21 @@ if (isset($_GET['STUD_ID'])) {
     $row = mysqli_fetch_assoc($qry);
 }
 
-if (isset($_POST['save'])) {
+if (isset($_POST['update'])) {
     include("connection/connection.php");
     $STUD_ID = $_POST['STUD_ID'];
-    $STUD_NAME = $_POST['STUD_NAME'];
+    $STUD_NAME = strtoupper($_POST['STUD_NAME']);
     $STUD_IC = $_POST['STUD_IC'];
     $STUD_USERNAME = $_POST['STUD_USERNAME'];
     $STUD_PASSWORD = $_POST['STUD_PASSWORD'];
-    $STUD_ADDRESS = $_POST['STUD_ADDRESS'];
+    $STUD_ADDRESS = strtoupper($_POST['STUD_ADDRESS']);
     $STUD_GENDER = $_POST['STUD_GENDER'];
     $STUD_EMAIL = $_POST['STUD_EMAIL'];
     $STUD_CLASS = $_POST['STUD_CLASS'];
     $STUD_AGE = $_POST['STUD_AGE'];
     $STUD_PHONE = $_POST['STUD_PHONE'];
 
-    $duplicate = "SELECT STUD_IC FROM STUDENT WHERE STUD_IC = '$STUD_IC'";
-    $check = mysqli_query($conn, $duplicate);
-    $checkrows = mysqli_num_rows($check);
 
-
-    if ($checkrows > 0) {
-        header("Location: register.php?op=errkod");
-        return false;
-    } else {
         $query = "UPDATE STUDENT SET
         STUD_NAME = '$STUD_NAME',
         STUD_IC = '$STUD_IC',
@@ -42,9 +34,9 @@ if (isset($_POST['save'])) {
         STUD_EMAIL = '$STUD_EMAIL', 
         STUD_CLASS = '$STUD_CLASS',
         STUD_AGE = '$STUD_AGE' , 
-        STUD_PHONE = '$STUD_PHONE',
-        WHERE = STUD_ID = $STUD_ID";
-    }
+        STUD_PHONE = '$STUD_PHONE'
+        WHERE  STUD_ID = $STUD_ID";
+    
 
 
     if (!mysqli_query($conn, $query)) {
@@ -61,6 +53,43 @@ if (isset($_POST['save'])) {
       $('#myModal').modal('show');
     });
       </script>";
+
+        header("Location: index.php?op=success");
+    }
+
+    echo $query;
+}
+else if (isset($_POST['delete'])) {
+    include("connection/connection.php");
+    $STUD_ID = $_POST['STUD_ID'];
+    $STUD_NAME = $_POST['STUD_NAME'];
+    $STUD_IC = $_POST['STUD_IC'];
+    $STUD_USERNAME = $_POST['STUD_USERNAME'];
+    $STUD_PASSWORD = $_POST['STUD_PASSWORD'];
+    $STUD_ADDRESS = $_POST['STUD_ADDRESS'];
+    $STUD_GENDER = $_POST['STUD_GENDER'];
+    $STUD_EMAIL = $_POST['STUD_EMAIL'];
+    $STUD_CLASS = $_POST['STUD_CLASS'];
+    $STUD_AGE = $_POST['STUD_AGE'];
+    $STUD_PHONE = $_POST['STUD_PHONE'];
+
+
+        $query = "DELETE from student WHERE  STUD_ID = $STUD_ID";
+ 
+    if (!mysqli_query($conn, $query)) {
+        echo "<script>
+        $(document).ready(function(){
+            $('#myModal').modal('show');
+        });
+            </script>";
+
+        header("Location: index.php?op=errkod");
+    } else {
+        echo "<script>
+        $(document).ready(function(){
+        $('#myModal').modal('show');
+        });
+        </script>";
 
         header("Location: index.php?op=success");
     }
@@ -190,6 +219,9 @@ if (isset($_POST['save'])) {
                     <div class="col-lg-5 col-md-8">
                         <div class="form">
                             <form action="update-member.php" method="post" role="form" name="register">
+                            <div class="form-group mt-3">
+                                    <input type="text" name="STUD_ID" class="form-control" value="<?php echo $row['STUD_ID']; ?>" id="STUD_ID" maxlength="50" required>
+                                </div>
                                 <div class="form-group mt-3">
                                     <input type="text" name="STUD_NAME" class="form-control" value="<?php echo $row['STUD_NAME']; ?>" id="STUD_NAME" maxlength="50" required>
                                 </div>
@@ -229,8 +261,8 @@ if (isset($_POST['save'])) {
                                 <div class="form-group mt-3">
                                     <input type="number" name="STUD_PHONE" class="form-control" id="STUD_PHONE" value="<?php echo $row['STUD_PHONE']; ?>" required>
                                 </div><br>
-                                <div class="text-center"><button type="submit" name="save">Register</button>
-                                <button type="reset">Reset</button></div>
+                                <div class="text-center"><button type="submit" name="update">Update</button>
+                                <button type="submit"  name="delete">Delete</button></div>
                             </form>
                         </div>
                     </div>
