@@ -47,19 +47,19 @@ $result = mysqli_query($conn, $sql);
     <div class="container d-flex align-items-center justify-content-between">
 
       <div id="logo">
-        <h1><a href="index.php"><span>My</span>Tech</a></h1>
+        <h1><a href="index.html"><span>My</span>Tech</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.php"><img src="assets/img/logo.png" alt="" title="" /></a>-->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" title="" /></a>-->
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about-us">Club Info</a></li>
           <li><a class="nav-link scrollto" href="#features">Activity</a></li>
           <li><a class="nav-link scrollto" href="#screenshots">Gallery</a></li>
           <li><a class="nav-link scrollto" href="#team">Members</a></li>
-          <li><a class="nav-link scrollto" href="register.php">Registration</a></li>
+          <li><a class="nav-link scrollto" href="#pricing">Registration</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -214,7 +214,7 @@ $result = mysqli_query($conn, $sql);
                   echo "<td>" . $row['STUD_NAME'] . "</td>";
                   echo '<td class="text-center">';
                   echo '<ul class="table-controls">';
-                  echo '<li><a href="update-member.php?STUD_ID=' . urlencode($row['STUD_ID']) . '" data-toggle="tooltip" data-placement="top" title="Edit">Edit</a></li>';
+                  echo '<a href="update-member.php?STUD_ID=' . urlencode($row['STUD_ID']) . '" data-toggle="tooltip" data-placement="top" title="Edit">Edit</a>';
                   echo '</ul>';
                   echo '</td>';
                   echo "</tr>";
@@ -224,14 +224,6 @@ $result = mysqli_query($conn, $sql);
             </table>
           </div>
 
-
-
-
-          <div class="row" data-aos="fade-up" data-aos-delay="100">
-            <div class="hero-container" data-aos="fade-in">
-              <center><button style="margin-bottom: 4px" class="btn btn-success" type="button" data-dismiss="modal">Update Member Information</button></center>
-            </div>
-          </div>
         </div>
       </div>
     </section><!-- End Team Section -->
@@ -245,24 +237,6 @@ $result = mysqli_query($conn, $sql);
           <h2>Let's Join Us!</h2>
           <p class="separator">Frustrations? We Give Computer Solutions</p>
         </div>
-        <!-- Pie Chart --> 
-      <div class="col-xl-10 col-lg-10">
-        <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Gender of Member</h6>
-            
-          </div>
-          <!-- Card Body -->
-          <div class="card-body">
-            <div >
-              <div id="donutchart" style="width: 900px; height: 500px;"></div>
-            </div>
-          
-          </div>
-        </div>
-      </div>
-       
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
           <div class="hero-container" data-aos="fade-in">
@@ -437,7 +411,7 @@ $result = mysqli_query($conn, $sql);
           Licensing information: https://bootstrapmade.com/license/
           Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eStartup
         -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+         
         </div>
       </div>
     </div>
@@ -466,32 +440,6 @@ $result = mysqli_query($conn, $sql);
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['STUD_GENDER', 'total'],
-        
-        <?php
-          include('connection/connection.php');
-          $query = "SELECT STUD_GENDER, COUNT(*) AS total FROM student  GROUP BY STUD_GENDER ORDER BY total, STUD_GENDER";
-          $result = mysqli_query($conn,$query);
-          while($row = mysqli_fetch_assoc($result))
-          {
-            echo "['".$row['STUD_GENDER']."', ".$row['total']."],";
-          }
-        ?>
-        ]);
-        var options = {
-          title: '',
-          pieHole: 0.4,
-        };
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
 </body>
 
 </html>

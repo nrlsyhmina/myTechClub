@@ -34,15 +34,10 @@ if (isset($_POST['update'])) {
         STUD_EMAIL = '$STUD_EMAIL', 
         STUD_CLASS = '$STUD_CLASS',
         STUD_AGE = '$STUD_AGE' , 
-<<<<<<< HEAD
-        STUD_PHONE = '$STUD_PHONE',
-        WHERE STUD_ID = $STUD_ID";
-    }
-=======
         STUD_PHONE = '$STUD_PHONE'
-        WHERE  STUD_ID = $STUD_ID";
+        WHERE STUD_ID = $STUD_ID";
     
->>>>>>> 43841aaaf7b7a4242bb2403c01499a601fc777dc
+
 
 
     if (!mysqli_query($conn, $query)) {
