@@ -43,7 +43,7 @@ if (isset($_POST['save'])) {
         STUD_CLASS = '$STUD_CLASS',
         STUD_AGE = '$STUD_AGE' , 
         STUD_PHONE = '$STUD_PHONE',
-        WHERE = STUD_ID = $STUD_ID";
+        WHERE STUD_ID = $STUD_ID";
     }
 
 
