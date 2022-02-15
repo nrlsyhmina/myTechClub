@@ -9,29 +9,21 @@ if (isset($_GET['STUD_ID'])) {
     $row = mysqli_fetch_assoc($qry);
 }
 
-if (isset($_POST['save'])) {
+if (isset($_POST['update'])) {
     include("connection/connection.php");
     $STUD_ID = $_POST['STUD_ID'];
-    $STUD_NAME = $_POST['STUD_NAME'];
+    $STUD_NAME = strtoupper($_POST['STUD_NAME']);
     $STUD_IC = $_POST['STUD_IC'];
     $STUD_USERNAME = $_POST['STUD_USERNAME'];
     $STUD_PASSWORD = $_POST['STUD_PASSWORD'];
-    $STUD_ADDRESS = $_POST['STUD_ADDRESS'];
+    $STUD_ADDRESS = strtoupper($_POST['STUD_ADDRESS']);
     $STUD_GENDER = $_POST['STUD_GENDER'];
     $STUD_EMAIL = $_POST['STUD_EMAIL'];
     $STUD_CLASS = $_POST['STUD_CLASS'];
     $STUD_AGE = $_POST['STUD_AGE'];
     $STUD_PHONE = $_POST['STUD_PHONE'];
 
-    $duplicate = "SELECT STUD_IC FROM STUDENT WHERE STUD_IC = '$STUD_IC'";
-    $check = mysqli_query($conn, $duplicate);
-    $checkrows = mysqli_num_rows($check);
 
-
-    if ($checkrows > 0) {
-        header("Location: register.php?op=errkod");
-        return false;
-    } else {
         $query = "UPDATE STUDENT SET
         STUD_NAME = '$STUD_NAME',
         STUD_IC = '$STUD_IC',
@@ -42,9 +34,15 @@ if (isset($_POST['save'])) {
         STUD_EMAIL = '$STUD_EMAIL', 
         STUD_CLASS = '$STUD_CLASS',
         STUD_AGE = '$STUD_AGE' , 
+<<<<<<< HEAD
         STUD_PHONE = '$STUD_PHONE',
         WHERE STUD_ID = $STUD_ID";
     }
+=======
+        STUD_PHONE = '$STUD_PHONE'
+        WHERE  STUD_ID = $STUD_ID";
+    
+>>>>>>> 43841aaaf7b7a4242bb2403c01499a601fc777dc
 
 
     if (!mysqli_query($conn, $query)) {
@@ -61,6 +59,43 @@ if (isset($_POST['save'])) {
       $('#myModal').modal('show');
     });
       </script>";
+
+        header("Location: index.php?op=success");
+    }
+
+    echo $query;
+}
+else if (isset($_POST['delete'])) {
+    include("connection/connection.php");
+    $STUD_ID = $_POST['STUD_ID'];
+    $STUD_NAME = $_POST['STUD_NAME'];
+    $STUD_IC = $_POST['STUD_IC'];
+    $STUD_USERNAME = $_POST['STUD_USERNAME'];
+    $STUD_PASSWORD = $_POST['STUD_PASSWORD'];
+    $STUD_ADDRESS = $_POST['STUD_ADDRESS'];
+    $STUD_GENDER = $_POST['STUD_GENDER'];
+    $STUD_EMAIL = $_POST['STUD_EMAIL'];
+    $STUD_CLASS = $_POST['STUD_CLASS'];
+    $STUD_AGE = $_POST['STUD_AGE'];
+    $STUD_PHONE = $_POST['STUD_PHONE'];
+
+
+        $query = "DELETE from student WHERE  STUD_ID = $STUD_ID";
+ 
+    if (!mysqli_query($conn, $query)) {
+        echo "<script>
+        $(document).ready(function(){
+            $('#myModal').modal('show');
+        });
+            </script>";
+
+        header("Location: index.php?op=errkod");
+    } else {
+        echo "<script>
+        $(document).ready(function(){
+        $('#myModal').modal('show');
+        });
+        </script>";
 
         header("Location: index.php?op=success");
     }
@@ -146,20 +181,15 @@ if (isset($_POST['save'])) {
         <div class="container d-flex align-items-center justify-content-between">
 
             <div id="logo">
-                <h1><a href="index.html"><span>My</span>Tech</a></h1>
+                <h1><a href="index.php"><span>My</span>Tech</a></h1>
                 <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" title="" /></a>-->
+                <!-- <a href="index.php"><img src="assets/img/logo.png" alt="" title="" /></a>-->
             </div>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about-us">Club Info</a></li>
-                    <li><a class="nav-link scrollto" href="#features">Activity</a></li>
-                    <li><a class="nav-link scrollto" href="#screenshots">Gallery</a></li>
-                    <li><a class="nav-link scrollto" href="#team">Members</a></li>
-                    <li><a class="nav-link scrollto" href="#pricing">Registration</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+                <li><a class="nav-link scrollto" href="register.php">Registration</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -195,6 +225,9 @@ if (isset($_POST['save'])) {
                     <div class="col-lg-5 col-md-8">
                         <div class="form">
                             <form action="update-member.php" method="post" role="form" name="register">
+                            <div class="form-group mt-3">
+                                    <input type="text" name="STUD_ID" class="form-control" value="<?php echo $row['STUD_ID']; ?>" id="STUD_ID" maxlength="50" required>
+                                </div>
                                 <div class="form-group mt-3">
                                     <input type="text" name="STUD_NAME" class="form-control" value="<?php echo $row['STUD_NAME']; ?>" id="STUD_NAME" maxlength="50" required>
                                 </div>
@@ -233,9 +266,9 @@ if (isset($_POST['save'])) {
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="number" name="STUD_PHONE" class="form-control" id="STUD_PHONE" value="<?php echo $row['STUD_PHONE']; ?>" required>
-                                </div>
-                                <div class="text-center"><button type="submit" name="save">Register</button></div>
-                                <div class="text-center"><button type="reset">Reset</button></div>
+                                </div><br>
+                                <div class="text-center"><button type="submit" name="update">Update</button>
+                                <button type="submit"  name="delete">Delete</button></div>
                             </form>
                         </div>
                     </div>

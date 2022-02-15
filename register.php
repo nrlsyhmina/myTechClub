@@ -3,11 +3,11 @@
 if (isset($_POST['save'])) {
     include("connection/connection.php");
 
-    $STUD_NAME = $_POST['STUD_NAME'];
+    $STUD_NAME = strtoupper($_POST['STUD_NAME']);
     $STUD_IC = $_POST['STUD_IC'];
     $STUD_USERNAME = $_POST['STUD_USERNAME'];
     $STUD_PASSWORD = $_POST['STUD_PASSWORD'];
-    $STUD_ADDRESS = $_POST['STUD_ADDRESS'];
+    $STUD_ADDRESS = strtoupper($_POST['STUD_ADDRESS']);
     $STUD_GENDER = $_POST['STUD_GENDER'];
     $STUD_EMAIL = $_POST['STUD_EMAIL'];
     $STUD_CLASS = $_POST['STUD_CLASS'];
@@ -23,7 +23,8 @@ if (isset($_POST['save'])) {
         header("Location: register.php?op=errkod");
         return false;
     } else {
-        $query = "INSERT INTO STUDENT(STUD_NAME, STUD_IC, STUD_USERNAME, STUD_PASSWORD, STUD_ADDRESS, STUD_GENDER, STUD_EMAIL, STUD_CLASS, STUD_AGE, STUD_PHONE)VALUES('$STUD_NAME', '$STUD_IC','$STUD_USERNAME', '$STUD_PASSWORD', '$STUD_ADDRESS', '$STUD_GENDER', '$STUD_EMAIL', '$STUD_CLASS', '$STUD_AGE' , '$STUD_PHONE')";
+        $query = "INSERT INTO STUDENT(STUD_NAME, STUD_IC, STUD_USERNAME, STUD_PASSWORD, STUD_ADDRESS, STUD_GENDER, STUD_EMAIL, STUD_CLASS, STUD_AGE, STUD_PHONE)
+        VALUES('$STUD_NAME', '$STUD_IC','$STUD_USERNAME', '$STUD_PASSWORD', '$STUD_ADDRESS', '$STUD_GENDER', '$STUD_EMAIL', '$STUD_CLASS', '$STUD_AGE' , '$STUD_PHONE')";
     }
 
 
@@ -42,7 +43,7 @@ if (isset($_POST['save'])) {
     });
       </script>";
 
-        header("Location: register.php?op=success");
+        header("Location: index.php?op=success");
     }
 
     echo $query;
@@ -133,13 +134,8 @@ if (isset($_POST['save'])) {
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about-us">Club Info</a></li>
-                    <li><a class="nav-link scrollto" href="#features">Activity</a></li>
-                    <li><a class="nav-link scrollto" href="#screenshots">Gallery</a></li>
-                    <li><a class="nav-link scrollto" href="#team">Members</a></li>
-                    <li><a class="nav-link scrollto" href="#pricing">Registration</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+                <li><a class="nav-link scrollto" href="register.php">Registration</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -214,8 +210,8 @@ if (isset($_POST['save'])) {
                                 <div class="form-group mt-3">
                                     <input type="number" name="STUD_PHONE" class="form-control" id="STUD_PHONE" placeholder="Your Phone Number" required>
                                 </div>
-                                <div class="text-center"><button type="submit" name="save">Register</button></div>
-                                <div class="text-center"><button type="reset">Reset</button></div>
+                                <div class="text-center"><button type="submit" onclick="validateForm()" name="save">Register</button>
+                                <button type="reset">Reset</button></div>
                             </form>
                         </div>
                     </div>
