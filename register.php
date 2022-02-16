@@ -78,39 +78,7 @@ if (isset($_POST['save'])) {
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
-    <script language="javascript">
-        function validateForm() {
-            let ic = document.forms["register"]["STUD_IC"].value;
-            if (ic == "") {
-                alert("Name must be filled out");
-                return false;
-            }
-
-            let name = document.forms["register"]["STUD_NAME"].value;
-            if (name == "") {
-                alert("Name must be filled out");
-                return false;
-            }
-
-            let username = document.forms["register"]["STUD_USERNAME"].value;
-            if (username == "") {
-                alert("Name must be filled out");
-                return false;
-            }
-
-            let password = document.forms["register"]["STUD_PASSWORD"].value;
-            if (password == "") {
-                alert("Name must be filled out");
-                return false;
-            }
-
-            let address = document.forms["register"]["STUD_ADDRESS"].value;
-            if (address == "") {
-                alert("Name must be filled out");
-                return false;
-            }
-        }
-    </script>
+    
 
     <!-- =======================================================
   * Template Name: eStartup - v4.7.0
@@ -170,24 +138,30 @@ if (isset($_POST['save'])) {
 
                     <div class="col-lg-5 col-md-8">
                         <div class="form">
-                            <form action="register.php" method="post" role="form" name="register">
+                            <form action="register.php" method="post" role="form" name="register" onsubmit="return validateForm()">
                                 <div class="form-group mt-3">
                                     <input type="text" name="STUD_NAME" class="form-control" id="STUD_NAME" placeholder="Your Name" maxlength="50" required>
+                                    <font style="color: red;"><p id="err_uname"></p></font>
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="email" class="form-control" name="STUD_EMAIL" id="STUD_EMAIL" placeholder="Your Email" required>
+                                    <font style="color: red;"><p id="err_mail"></p></font>
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="text" name="STUD_IC" class="form-control" id="STUD_IC" placeholder="Your IC Number" maxlength="12" required>
+                                    <font style="color: red;"><p id="err_ic"></p></font>
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="text" name="STUD_USERNAME" class="form-control" id="STUD_USERNAME" placeholder="Your Username" required>
+                                    <font style="color: red;"><p id="err_stduname"></p></font>
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="password" name="STUD_PASSWORD" class="form-control" id="STUD_PASSWORD" placeholder="Your Password" minlength="5" maxlength="12" required>
+                                    <font style="color: red;"><p id="err_pass"></p></font>  `
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="text" name="STUD_ADDRESS" class="form-control" id="STUD_ADDRESS" placeholder="Your Home Address" required>
+                                    <font style="color: red;"><p id="err_address"></p></font>
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="radio" id="gender1" name="STUD_GENDER" value="Female">
@@ -196,6 +170,7 @@ if (isset($_POST['save'])) {
                                     <label for="gender2">Male</label><br>
                                     <input type="radio" id="gender3" name="STUD_GENDER" value="Rather Not To Say">
                                     <label for="gender3">Rather Not To Say</label><br><br>
+                                    <font style="color: red;"><p id="err_gender"></p></font>
                                 </div>
                                 <div class="form-group mt-3">
                                     <select name="STUD_CLASS" id="STUD_CLASS">
@@ -206,11 +181,13 @@ if (isset($_POST['save'])) {
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="number" name="STUD_AGE" class="form-control" id="STUD_AGE" placeholder="Your Age" required>
+                                    <font style="color: red;"><p id="err_age"></p></font>
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="number" name="STUD_PHONE" class="form-control" id="STUD_PHONE" placeholder="Your Phone Number" required>
+                                    <font style="color: red;"><p id="err_tnum"></p></font>
                                 </div>
-                                <div class="text-center"><button type="submit" onclick="validateForm()" name="save">Register</button>
+                                <div class="text-center"><button type="submit" name="save">Register</button>
                                 <button type="reset">Reset</button></div>
                             </form>
                         </div>
@@ -326,6 +303,142 @@ if (isset($_POST['save'])) {
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script>
+            function validateForm(){
+                let val;
+                let text;
+                //VALIDATE FULL NAME
+                let stdname = document.getElementById("STUD_NAME").value;
+                if (stdname.length > 50 )
+                {
+                    text = "Your input exceeds 50 characters!!";
+                    document.getElementById("err_uname").innerHTML = text;
+                    val = false;
+                }
+                if (!stdname)
+                {
+                    text = "Please fill in this field";
+                    document.getElementById("err_uname").innerHTML = text;
+                    val = false;
+                }
+                //VALIDATE IC NUMBER
+                let ic_num = document.getElementById("STUD_IC").value;
+                if (ic_num.length > 12 || ic_num.length < 12 )
+                {
+                    text = "Please enter the 12 digits of IC number without '-'";
+                    document.getElementById("err_ic").innerHTML = text;
+                    val = false;
+                }
+                if (!ic_num)
+                {
+                    text = "Please fill in this field";
+                    document.getElementById("err_ic").innerHTML = text;
+                    val = false;
+                }
+                //VALIDATE EMAIL
+                let email = document.getElementById("STUD_EMAIL").value;
+                if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)))
+                {
+                    text = "Please enter the valid email form ie. meton@gmail.com";
+                    document.getElementById("err_mail").innerHTML = text;
+                    val = false;
+                }
+                if (!email)
+                {
+                    text = "Please fill in this field";
+                    document.getElementById("err_mail").innerHTML = text;
+                    val = false;
+                }
+                //VALIDATE ADDRESS
+                let address = document.getElementById("STUD_ADDRESS").value;
+                if (!address)
+                {
+                    text = "Please fill in this field";
+                    document.getElementById("err_address").innerHTML = text;
+                    val = false;
+                }
+                //VALIDATE INTEREST
+                var checkBoxes = document.getElementsByClassName( 'STUD_CLASS' );
+                var isChecked = false;
+                for (var i = 0; i < checkBoxes.length; i++) {
+                    if ( checkBoxes[i].checked ) {
+                        isChecked = true;
+                    };
+                };
+                if (isChecked) {
+                    text = "Please, check at least one checkbox!";
+                    document.getElementById("err_interest").innerHTML = text;
+                    val = false;
+                }  
+                //VALIDATE PHONE NUMBER
+                let x = document.getElementById("STUD_PHONE").value;
+                if (!/^[0-9]+$/.test(x)) {
+                   text = "Input not numbers";
+                   document.getElementById("err_tnum").innerHTML = text;
+                   val = false;
+                } 
+                if (!x) {
+                   text = "Please fill in this field";
+                   document.getElementById("err_tnum").innerHTML = text;
+                   val = false;
+                }
+                //VALIDATE GENDER RADIOBOX
+                var radios = document.getElementsByName("STUD_GENDER");
+                checked = false;
+                for (var i = 0, len = radios.length; i < len; i++) {
+                    if (radios[i].checked) {
+                        checked = true;
+                    }
+                }
+                if (!checked ) {
+                    text = "Please, check at least one input!";
+                    document.getElementById("err_gender").innerHTML = text;
+                    val = false;
+                } 
+                //VALIDATE AGE
+                let age = document.getElementById("STUD_AGE").value;
+                if (!/^[0-9]+$/.test(age)) {
+                   text = "Input not numbers";
+                   document.getElementById("err_age").innerHTML = text;
+                   val = false;
+                } 
+                if (!age) {
+                   text = "Please fill in this field";
+                   document.getElementById("err_age").innerHTML = text;
+                   val = false;
+                }
+                //VALIDATE USERNAME
+                let stduname = document.getElementById("STUD_USERNAME").value;
+                if (stduname.length <5 || stduname.length >20)
+                {
+                    text = "Your input must be in range of 5-20 characters only!!";
+                    document.getElementById("err_stduname").innerHTML = text;
+                    val = false;
+                }
+                if (!stduname)
+                {
+                    text = "Please fill in this field";
+                    document.getElementById("err_stduname").innerHTML = text;
+                    val = false;
+                }
+                //VALIDATE PASSWORD
+                let pass = document.getElementById("STUD_PASSWORD").value;
+                if (pass.length <5 || pass.length >20)
+                {
+                    text = "Your password must be in range of 5-20 characters only!!";
+                    document.getElementById("err_pass").innerHTML = text;
+                    val = false;
+                }
+                if (!pass)
+                {
+                    text = "Please fill in this field";
+                    document.getElementById("err_pass").innerHTML = text;
+                    val = false;
+                }
+    
+                return val;
+            }
+        </script>
 
 </body>
 

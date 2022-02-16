@@ -411,7 +411,7 @@ $result = mysqli_query($conn, $sql);
           Licensing information: https://bootstrapmade.com/license/
           Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eStartup
         -->
-         
+
         </div>
       </div>
     </div>
