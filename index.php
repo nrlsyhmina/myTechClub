@@ -85,9 +85,8 @@ $result = mysqli_query($conn, $sql);
       <div class="container" data-aos="fade-up">
         <div class="row justify-content-center">
 
-          <div class="col-md-5 col-lg-3">
-            <img src="assets/img/codes.png" alt="About" data-aos="zoom-in" data-aos-delay="100">
-          </div>
+          
+         
 
           <div class="col-md-7 col-lg-5">
             <div class="about-content" data-aos="fade-left" data-aos-delay="100">
@@ -97,6 +96,7 @@ $result = mysqli_query($conn, $sql);
                 There are various types of activity conducted by MyTech Club to educate the students regarding the computer world such as
                 coding competition and hacking simulation.
               </p>
+             
 
               <ul class="list-unstyled">
                 <li><i class="vi bi-chevron-right"></i>Creative</li>
@@ -107,9 +107,15 @@ $result = mysqli_query($conn, $sql);
               </ul>
 
             </div>
+            <h2>Gender <span>of Club</span></h2>
+              <p>We accept any gender to enter the club!
+              </p>
+            <div id="donutchart" ></div>
           </div>
 
         </div>
+       
+           
       </div>
     </section><!-- End About Us Section -->
 
@@ -237,23 +243,7 @@ $result = mysqli_query($conn, $sql);
           <h2>Let's Join Us!</h2>
           <p class="separator">Frustrations? We Give Computer Solutions</p>
         </div>
-        <!-- Pie Chart --> 
-        <div class="col-xl-10 col-lg-10">
-          <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Gender of Members</h6>
-              
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-              <div >
-                <div id="donutchart" style="width: 900px; height: 500px;"></div>
-              </div>
-            
-            </div>
-          </div>
-        </div>
+    
         <div class="row" data-aos="fade-up" data-aos-delay="100">
           <div class="hero-container" data-aos="fade-in">
             <center><button class="btn btn-success" type="button" data-dismiss="modal"><a style="color: white" class="button" href="register.php">Register Now!</a></button></center>
