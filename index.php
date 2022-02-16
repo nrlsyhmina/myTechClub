@@ -31,7 +31,7 @@ $result = mysqli_query($conn, $sql);
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- =======================================================
   * Template Name: eStartup - v4.7.0
   * Template URL: https://bootstrapmade.com/estartup-bootstrap-landing-page-template/
@@ -237,7 +237,23 @@ $result = mysqli_query($conn, $sql);
           <h2>Let's Join Us!</h2>
           <p class="separator">Frustrations? We Give Computer Solutions</p>
         </div>
-
+        <!-- Pie Chart --> 
+        <div class="col-xl-10 col-lg-10">
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Gender of Members</h6>
+              
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div >
+                <div id="donutchart" style="width: 900px; height: 500px;"></div>
+              </div>
+            
+            </div>
+          </div>
+        </div>
         <div class="row" data-aos="fade-up" data-aos-delay="100">
           <div class="hero-container" data-aos="fade-in">
             <center><button class="btn btn-success" type="button" data-dismiss="modal"><a style="color: white" class="button" href="register.php">Register Now!</a></button></center>
@@ -411,7 +427,7 @@ $result = mysqli_query($conn, $sql);
           Licensing information: https://bootstrapmade.com/license/
           Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eStartup
         -->
-
+         
         </div>
       </div>
     </div>
@@ -436,7 +452,31 @@ $result = mysqli_query($conn, $sql);
       // win.focus();
     }
   </script>
-
+  <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['STUD_GENDER', 'total'],
+        
+        <?php
+          include('connection/connection.php');
+          $query = "SELECT STUD_GENDER, COUNT(*) AS total FROM student  GROUP BY STUD_GENDER ORDER BY total, STUD_GENDER";
+          $result = mysqli_query($conn,$query);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            echo "['".$row['STUD_GENDER']."', ".$row['total']."],";
+          }
+        ?>
+        ]);
+        var options = {
+          title: '',
+          pieHole: 0.4,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
